@@ -8,12 +8,12 @@ Download the script
     wget https://raw.github.com/jvassev/install-jdk/master/install-jdk
     
 
-Run the script as root:
+Run the script as root pointing it to the downloaded tar.gz archive
 
     $ sudo bash install-jdk ~/Downloads/jdk-7u4-linux-x64.tar.gz
     
 
-The script prompts you for what to do next:
+The script prompts you for what to do next
 
     prefix:/usr/lib/jvm
     prio:168
@@ -28,12 +28,12 @@ The script prompts you for what to do next:
     +++ Select the newly installed java using:
     sudo update-java-alternatives -s jdk1.7.0_04
 
-So let's run
+So let's update the system-wide java
     
     sudo update-java-alternatives -s jdk1.7.0_04
 
 
-Verify the new version is installed:
+Verify the new version is installed
 
     $ java -version
     java version "1.7.0_04"
