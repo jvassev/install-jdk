@@ -20,7 +20,7 @@ NAME=`gunzip -c $ARCHIVE | tar tf - | head -n 1`
 cd $PREFIX
 tar xzf $ARCHIVE
 
-JVM=$PREFIX/$NAME
+JVM=`readlink -f $PREFIX/$NAME`
 echo JVM: $JVM
 
 ALIAS=`readlink -f $JVM`
