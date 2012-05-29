@@ -35,7 +35,8 @@ So let's run
 
 Verify the new version is installed:
 
-    $ java version "1.7.0_04"
+    $ java -version
+    java version "1.7.0_04"
     Java(TM) SE Runtime Environment (build 1.7.0_04-b20)
     Java HotSpot(TM) 64-Bit Server VM (build 23.0-b21, mixed mode)
     
