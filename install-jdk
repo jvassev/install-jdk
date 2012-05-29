@@ -36,7 +36,7 @@ echo
 
 
 cat > $PREFIX/.$ALIAS.jinfo << EOF
-alias=java-7-oracle
+alias=$ALIAS
 priority=$PRIO
 section=non-free
 
