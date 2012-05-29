@@ -79,7 +79,7 @@ jdk wsgen $JVM/bin/wsgen
 jdk wsimport $JVM/bin/wsimport
 jdk xjc $JVM/bin/xjc
 plugin xulrunner-1.9-javaplugin.so $JVM/jre/lib/amd64/libnpjp2.so
-plugin mozilla-javaplugin.so $JVM/jre/lib/amd64/libnpjp2.so"
+plugin mozilla-javaplugin.so $JVM/jre/lib/amd64/libnpjp2.so
 EOF
 
 
