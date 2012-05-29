@@ -1,0 +1,139 @@
+#!/bin/bash
+if [ $# -ne 1 ]
+then
+    echo Usage:  `basename $0` PATH_TO_DOWNLOADED_TGZ 
+    echo Example: `basename $0` ~/Downloads/jdk-7u4-linux-x64.tar.gz 
+    exit 127
+fi
+
+PREFIX=/usr/lib/jvm
+#PREFIX=/tmp/jvm
+mkdir -p $PREFIX || true
+echo prefix:$PREFIX
+
+PRIO=`update-java-alternatives -l | cut -f 2 -d ' ' | sort -nr | head -n 1`
+PRIO=`expr $PRIO + 17`
+echo prio:$PRIO
+
+ARCHIVE=`readlink -f $1`
+NAME=`gunzip -c $ARCHIVE | tar tf - | head -n 1`
+cd $PREFIX
+tar xzf $ARCHIVE
+
+JVM=$PREFIX/$NAME
+echo JVM: $JVM
+
+ALIAS=`readlink -f $JVM`
+ALIAS=`basename $ALIAS`
+echo alias: $ALIAS
+echo
+
+
+cat > $PREFIX/.$ALIAS.jinfo << EOF
+alias=java-7-oracle
+priority=$PRIO
+section=non-free
+
+jre ControlPanel $JVM/jre/bin/ControlPanel
+jre java $JVM/jre/bin/java
+jre java_vm $JVM/jre/bin/java_vm
+jre javaws $JVM/jre/bin/javaws
+jre jcontrol $JVM/jre/bin/jcontrol
+jre keytool $JVM/jre/bin/keytool
+jre pack200 $JVM/jre/bin/pack200
+jre policytool $JVM/jre/bin/policytool
+jre rmid $JVM/jre/bin/rmid
+jre rmiregistry $JVM/jre/bin/rmiregistry
+jre unpack200 $JVM/jre/bin/unpack200
+jre orbd $JVM/jre/bin/orbd
+jre servertool $JVM/jre/bin/servertool
+jre tnameserv $JVM/jre/bin/tnameserv
+jre jexec $JVM/jre/lib/jexec
+jdk appletviewer $JVM/bin/appletviewer
+jdk apt $JVM/bin/apt
+jdk extcheck $JVM/bin/extcheck
+jdk idlj $JVM/bin/idlj
+jdk jar $JVM/bin/jar
+jdk jarsigner $JVM/bin/jarsigner
+jdk java-rmi.cgi $JVM/bin/java-rmi.cgi
+jdk javac $JVM/bin/javac
+jdk javadoc $JVM/bin/javadoc
+jdk javah $JVM/bin/javah
+jdk javap $JVM/bin/javap
+jdk jconsole $JVM/bin/jconsole
+jdk jdb $JVM/bin/jdb
+jdk jhat $JVM/bin/jhat
+jdk jinfo $JVM/bin/jinfo
+jdk jmap $JVM/bin/jmap
+jdk jps $JVM/bin/jps
+jdk jrunscript $JVM/bin/jrunscript
+jdk jsadebugd $JVM/bin/jsadebugd
+jdk jstack $JVM/bin/jstack
+jdk jstat $JVM/bin/jstat
+jdk jstatd $JVM/bin/jstatd
+jdk native2ascii $JVM/bin/native2ascii
+jdk rmic $JVM/bin/rmic
+jdk schemagen $JVM/bin/schemagen
+jdk serialver $JVM/bin/serialver
+jdk wsgen $JVM/bin/wsgen
+jdk wsimport $JVM/bin/wsimport
+jdk xjc $JVM/bin/xjc
+plugin xulrunner-1.9-javaplugin.so $JVM/jre/lib/amd64/libnpjp2.so
+plugin mozilla-javaplugin.so $JVM/jre/lib/amd64/libnpjp2.so"
+EOF
+
+
+update-alternatives  --install /usr/lib/xulrunner-addons/plugins/libjavaplugin.so xulrunner-1.9-javaplugin.so $JVM/jre/lib/amd64/libnpjp2.so $PRIO
+update-alternatives  --install /usr/lib/mozilla/plugins/libjavaplugin.so mozilla-javaplugin.so $JVM/jre/lib/amd64/libnpjp2.so $PRIO
+update-alternatives  --install /usr/bin/appletviewer appletviewer $JVM/bin/appletviewer $PRIO --slave /usr/share/man/man1/appletviewer.1 appletviewer.1 $JVM/man/man1/appletviewer.1
+update-alternatives  --install /usr/bin/apt apt $JVM/bin/apt $PRIO --slave /usr/share/man/man1/apt.1 apt.1 $JVM/man/man1/apt.1
+update-alternatives  --install /usr/bin/extcheck extcheck $JVM/bin/extcheck $PRIO --slave /usr/share/man/man1/extcheck.1 extcheck.1 $JVM/man/man1/extcheck.1
+update-alternatives  --install /usr/bin/idlj idlj $JVM/bin/idlj $PRIO --slave /usr/share/man/man1/idlj.1 idlj.1 $JVM/man/man1/idlj.1
+update-alternatives  --install /usr/bin/jar jar $JVM/bin/jar $PRIO --slave /usr/share/man/man1/jar.1 jar.1 $JVM/man/man1/jar.1
+update-alternatives  --install /usr/bin/jarsigner jarsigner $JVM/bin/jarsigner $PRIO --slave /usr/share/man/man1/jarsigner.1 jarsigner.1 $JVM/man/man1/jarsigner.1
+update-alternatives  --install /usr/bin/javac javac $JVM/bin/javac $PRIO --slave /usr/share/man/man1/javac.1 javac.1 $JVM/man/man1/javac.1
+update-alternatives  --install /usr/bin/javadoc javadoc $JVM/bin/javadoc $PRIO --slave /usr/share/man/man1/javadoc.1 javadoc.1 $JVM/man/man1/javadoc.1
+update-alternatives  --install /usr/bin/javah javah $JVM/bin/javah $PRIO --slave /usr/share/man/man1/javah.1 javah.1 $JVM/man/man1/javah.1
+update-alternatives  --install /usr/bin/javap javap $JVM/bin/javap $PRIO --slave /usr/share/man/man1/javap.1 javap.1 $JVM/man/man1/javap.1
+update-alternatives  --install /usr/bin/jconsole jconsole $JVM/bin/jconsole $PRIO --slave /usr/share/man/man1/jconsole.1 jconsole.1 $JVM/man/man1/jconsole.1
+update-alternatives  --install /usr/bin/jdb jdb $JVM/bin/jdb $PRIO --slave /usr/share/man/man1/jdb.1 jdb.1 $JVM/man/man1/jdb.1
+update-alternatives  --install /usr/bin/jhat jhat $JVM/bin/jhat $PRIO --slave /usr/share/man/man1/jhat.1 jhat.1 $JVM/man/man1/jhat.1
+update-alternatives  --install /usr/bin/jinfo jinfo $JVM/bin/jinfo $PRIO --slave /usr/share/man/man1/jinfo.1 jinfo.1 $JVM/man/man1/jinfo.1
+update-alternatives  --install /usr/bin/jmap jmap $JVM/bin/jmap $PRIO --slave /usr/share/man/man1/jmap.1 jmap.1 $JVM/man/man1/jmap.1
+update-alternatives  --install /usr/bin/jps jps $JVM/bin/jps $PRIO --slave /usr/share/man/man1/jps.1 jps.1 $JVM/man/man1/jps.1
+update-alternatives  --install /usr/bin/jrunscript jrunscript $JVM/bin/jrunscript $PRIO --slave /usr/share/man/man1/jrunscript.1 jrunscript.1 $JVM/man/man1/jrunscript.1
+update-alternatives  --install /usr/bin/jsadebugd jsadebugd $JVM/bin/jsadebugd $PRIO --slave /usr/share/man/man1/jsadebugd.1 jsadebugd.1 $JVM/man/man1/jsadebugd.1
+update-alternatives  --install /usr/bin/jstack jstack $JVM/bin/jstack $PRIO --slave /usr/share/man/man1/jstack.1 jstack.1 $JVM/man/man1/jstack.1
+update-alternatives  --install /usr/bin/jstat jstat $JVM/bin/jstat $PRIO --slave /usr/share/man/man1/jstat.1 jstat.1 $JVM/man/man1/jstat.1
+update-alternatives  --install /usr/bin/jstatd jstatd $JVM/bin/jstatd $PRIO --slave /usr/share/man/man1/jstatd.1 jstatd.1 $JVM/man/man1/jstatd.1
+update-alternatives  --install /usr/bin/native2ascii native2ascii $JVM/bin/native2ascii $PRIO --slave /usr/share/man/man1/native2ascii.1 native2ascii.1 $JVM/man/man1/native2ascii.1
+update-alternatives  --install /usr/bin/rmic rmic $JVM/bin/rmic $PRIO --slave /usr/share/man/man1/rmic.1 rmic.1 $JVM/man/man1/rmic.1
+update-alternatives  --install /usr/bin/schemagen schemagen $JVM/bin/schemagen $PRIO --slave /usr/share/man/man1/schemagen.1 schemagen.1 $JVM/man/man1/schemagen.1
+update-alternatives  --install /usr/bin/serialver serialver $JVM/bin/serialver $PRIO --slave /usr/share/man/man1/serialver.1 serialver.1 $JVM/man/man1/serialver.1
+update-alternatives  --install /usr/bin/wsgen wsgen $JVM/bin/wsgen $PRIO --slave /usr/share/man/man1/wsgen.1 wsgen.1 $JVM/man/man1/wsgen.1
+update-alternatives  --install /usr/bin/wsimport wsimport $JVM/bin/wsimport $PRIO --slave /usr/share/man/man1/wsimport.1 wsimport.1 $JVM/man/man1/wsimport.1
+update-alternatives  --install /usr/bin/xjc xjc $JVM/bin/xjc $PRIO --slave /usr/share/man/man1/xjc.1 xjc.1 $JVM/man/man1/xjc.1
+update-alternatives  --install /usr/bin/java-rmi.cgi java-rmi.cgi $JVM/bin/java-rmi.cgi $PRIO
+update-alternatives  --install /usr/bin/ControlPanel ControlPanel $JVM/jre/bin/ControlPanel $PRIO
+update-alternatives  --install /usr/bin/java java $JVM/jre/bin/java $PRIO
+update-alternatives  --install /usr/bin/java_vm java_vm $JVM/jre/bin/java_vm $PRIO
+update-alternatives  --install /usr/bin/javaws javaws $JVM/jre/bin/javaws $PRIO
+update-alternatives  --install /usr/bin/jcontrol jcontrol $JVM/jre/bin/jcontrol $PRIO
+update-alternatives  --install /usr/bin/keytool keytool $JVM/jre/bin/keytool $PRIO
+update-alternatives  --install /usr/bin/pack200 pack200 $JVM/jre/bin/pack200 $PRIO
+update-alternatives  --install /usr/bin/policytool policytool $JVM/jre/bin/policytool $PRIO
+update-alternatives  --install /usr/bin/rmid rmid $JVM/jre/bin/rmid $PRIO
+update-alternatives  --install /usr/bin/rmiregistry rmiregistry $JVM/jre/bin/rmiregistry $PRIO
+update-alternatives  --install /usr/bin/unpack200 unpack200 $JVM/jre/bin/unpack200 $PRIO
+update-alternatives  --install /usr/bin/orbd orbd $JVM/jre/bin/orbd $PRIO
+update-alternatives  --install /usr/bin/servertool servertool $JVM/jre/bin/servertool $PRIO
+update-alternatives  --install /usr/bin/tnameserv tnameserv $JVM/jre/bin/tnameserv $PRIO
+update-alternatives  --install /usr/bin/jexec jexec $JVM/jre/lib/jexec $PRIO
+
+echo " +++ Currently available javas:"
+update-java-alternatives -l
+echo
+echo
+echo " +++ Select the newly installed java using:"
+echo "sudo update-java-alternatives -s $ALIAS"
+
