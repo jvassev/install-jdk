@@ -6,6 +6,12 @@ then
     exit 127
 fi
 
+if [[ $USER != "root" ]]
+then
+    echo Must be run as root
+    exit 1
+fi
+
 PREFIX=/usr/lib/jvm
 #PREFIX=/tmp/jvm
 mkdir -p $PREFIX || true
@@ -18,7 +24,7 @@ echo prio:$PRIO
 ARCHIVE=`readlink -f $1`
 NAME=`gunzip -c $ARCHIVE | tar tf - | head -n 1`
 cd $PREFIX
-tar xzf $ARCHIVE
+tar xzf $ARCHIVE --no-same-owner
 
 JVM=`readlink -f $PREFIX/$NAME`
 echo JVM: $JVM
