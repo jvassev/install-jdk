@@ -1,8 +1,8 @@
 #!/bin/bash
 if [ $# -ne 1 ]
 then
-    echo Usage:  `basename $0` PATH_TO_DOWNLOADED_TGZ 
-    echo Example: `basename $0` ~/Downloads/jdk-7u4-linux-x64.tar.gz 
+    echo Usage:  `basename $0` PATH_TO_DOWNLOADED_TGZ
+    echo Example: `basename $0` ~/Downloads/jdk-7u4-linux-x64.tar.gz
     exit 127
 fi
 
@@ -119,22 +119,23 @@ update-alternatives  --install /usr/bin/serialver serialver $JVM/bin/serialver $
 update-alternatives  --install /usr/bin/wsgen wsgen $JVM/bin/wsgen $PRIO --slave /usr/share/man/man1/wsgen.1 wsgen.1 $JVM/man/man1/wsgen.1
 update-alternatives  --install /usr/bin/wsimport wsimport $JVM/bin/wsimport $PRIO --slave /usr/share/man/man1/wsimport.1 wsimport.1 $JVM/man/man1/wsimport.1
 update-alternatives  --install /usr/bin/xjc xjc $JVM/bin/xjc $PRIO --slave /usr/share/man/man1/xjc.1 xjc.1 $JVM/man/man1/xjc.1
-update-alternatives  --install /usr/bin/java-rmi.cgi java-rmi.cgi $JVM/bin/java-rmi.cgi $PRIO
-update-alternatives  --install /usr/bin/ControlPanel ControlPanel $JVM/jre/bin/ControlPanel $PRIO
-update-alternatives  --install /usr/bin/java java $JVM/jre/bin/java $PRIO
-update-alternatives  --install /usr/bin/java_vm java_vm $JVM/jre/bin/java_vm $PRIO
-update-alternatives  --install /usr/bin/javaws javaws $JVM/jre/bin/javaws $PRIO
-update-alternatives  --install /usr/bin/jcontrol jcontrol $JVM/jre/bin/jcontrol $PRIO
-update-alternatives  --install /usr/bin/keytool keytool $JVM/jre/bin/keytool $PRIO
-update-alternatives  --install /usr/bin/pack200 pack200 $JVM/jre/bin/pack200 $PRIO
-update-alternatives  --install /usr/bin/policytool policytool $JVM/jre/bin/policytool $PRIO
-update-alternatives  --install /usr/bin/rmid rmid $JVM/jre/bin/rmid $PRIO
-update-alternatives  --install /usr/bin/rmiregistry rmiregistry $JVM/jre/bin/rmiregistry $PRIO
-update-alternatives  --install /usr/bin/unpack200 unpack200 $JVM/jre/bin/unpack200 $PRIO
-update-alternatives  --install /usr/bin/orbd orbd $JVM/jre/bin/orbd $PRIO
-update-alternatives  --install /usr/bin/servertool servertool $JVM/jre/bin/servertool $PRIO
-update-alternatives  --install /usr/bin/tnameserv tnameserv $JVM/jre/bin/tnameserv $PRIO
-update-alternatives  --install /usr/bin/jexec jexec $JVM/jre/lib/jexec $PRIO
+
+update-alternatives  --install /usr/bin/java-rmi.cgi java-rmi.cgi $JVM/bin/java-rmi.cgi $PRIO --slave /usr/share/man/man1/java-rmi.cgi.1 java-rmi.cgi.1 $JVM/man/man1/java-rmi.cgi.1
+update-alternatives  --install /usr/bin/ControlPanel ControlPanel $JVM/jre/bin/ControlPanel $PRIO --slave /usr/share/man/man1/ControlPanel.1 ControlPanel.1 $JVM/man/man1/ControlPanel.1
+update-alternatives  --install /usr/bin/java java $JVM/jre/bin/java $PRIO --slave /usr/share/man/man1/java.1 java.1 $JVM/man/man1/java.1
+update-alternatives  --install /usr/bin/java_vm java_vm $JVM/jre/bin/java_vm $PRIO --slave /usr/share/man/man1/java_vm.1 java_vm.1 $JVM/man/man1/java_vm.1
+update-alternatives  --install /usr/bin/javaws javaws $JVM/jre/bin/javaws $PRIO --slave /usr/share/man/man1/javaws.1 javaws.1 $JVM/man/man1/javaws.1
+update-alternatives  --install /usr/bin/jcontrol jcontrol $JVM/jre/bin/jcontrol $PRIO --slave /usr/share/man/man1/jcontrol.1 jcontrol.1 $JVM/man/man1/jcontrol.1
+update-alternatives  --install /usr/bin/keytool keytool $JVM/jre/bin/keytool $PRIO --slave /usr/share/man/man1/keytool.1 keytool.1 $JVM/man/man1/keytool.1
+update-alternatives  --install /usr/bin/pack200 pack200 $JVM/jre/bin/pack200 $PRIO --slave /usr/share/man/man1/pack200.1 pack200.1 $JVM/man/man1/pack200.1
+update-alternatives  --install /usr/bin/policytool policytool $JVM/jre/bin/policytool $PRIO --slave /usr/share/man/man1/policytool.1 policytool.1 $JVM/man/man1/policytool.1
+update-alternatives  --install /usr/bin/rmid rmid $JVM/jre/bin/rmid $PRIO --slave /usr/share/man/man1/rmid.1 rmid.1 $JVM/man/man1/rmid.1
+update-alternatives  --install /usr/bin/rmiregistry rmiregistry $JVM/jre/bin/rmiregistry $PRIO --slave /usr/share/man/man1/rmiregistry.1 rmiregistry.1 $JVM/man/man1/rmiregistry.1
+update-alternatives  --install /usr/bin/unpack200 unpack200 $JVM/jre/bin/unpack200 $PRIO --slave /usr/share/man/man1/unpack200.1 unpack200.1 $JVM/man/man1/unpack200.1
+update-alternatives  --install /usr/bin/orbd orbd $JVM/jre/bin/orbd $PRIO --slave /usr/share/man/man1/orbd.1 orbd.1 $JVM/man/man1/orbd.1
+update-alternatives  --install /usr/bin/servertool servertool $JVM/jre/bin/servertool $PRIO --slave /usr/share/man/man1/servertool.1 servertool.1 $JVM/man/man1/servertool.1
+update-alternatives  --install /usr/bin/tnameserv tnameserv $JVM/jre/bin/tnameserv $PRIO --slave /usr/share/man/man1/tnameserv.1 tnameserv.1 $JVM/man/man1/tnameserv.1
+update-alternatives  --install /usr/bin/jexec jexec $JVM/jre/lib/jexec $PRIO --slave /usr/share/man/man1/jexec.1 jexec.1 $JVM/man/man1/jexec.1
 
 echo " +++ Currently available javas:"
 update-java-alternatives -l
