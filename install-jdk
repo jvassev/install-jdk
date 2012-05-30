@@ -17,9 +17,6 @@ PREFIX=/usr/lib/jvm
 mkdir -p $PREFIX || true
 echo prefix:$PREFIX
 
-PRIO=`update-java-alternatives -l | cut -f 2 -d ' ' | sort -nr | head -n 1`
-PRIO=`expr $PRIO + 17`
-echo prio:$PRIO
 
 ARCHIVE=`readlink -f $1`
 NAME=`gunzip -c $ARCHIVE | tar tf - | head -n 1`
@@ -32,6 +29,16 @@ echo JVM: $JVM
 ALIAS=`readlink -f $JVM`
 ALIAS=`basename $ALIAS`
 echo alias: $ALIAS
+
+PRIO=`update-java-alternatives -l | grep ^$ALIAS | cut -f 2 -d ' ' | sort -nr | head -n 1`
+if [[ $PRIO == '' ]]
+then
+    PRIO=`update-java-alternatives -l | cut -f 2 -d ' ' | sort -nr | head -n 1`
+    PRIO=`expr $PRIO + 17`
+fi
+echo prio:$PRIO
+
+
 echo
 
 
