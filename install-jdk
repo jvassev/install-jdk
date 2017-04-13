@@ -95,6 +95,12 @@ plugin xulrunner-1.9-javaplugin.so $JVM/jre/lib/amd64/libnpjp2.so
 plugin mozilla-javaplugin.so $JVM/jre/lib/amd64/libnpjp2.so
 EOF
 
+# Create dir if it isn't already exists
+if [ ! -d /usr/lib/xulrunner-addons/plugins/ ]
+then
+  echo "/usr/lib/xulrunner-addons/plugins doesn't exits. Creating ..."
+  sudo mkdir -p /usr/lib/xulrunner-addons/plugins/
+fi
 
 update-alternatives  --install /usr/lib/xulrunner-addons/plugins/libjavaplugin.so xulrunner-1.9-javaplugin.so $JVM/jre/lib/amd64/libnpjp2.so $PRIO
 update-alternatives  --install /usr/lib/mozilla/plugins/libjavaplugin.so mozilla-javaplugin.so $JVM/jre/lib/amd64/libnpjp2.so $PRIO
